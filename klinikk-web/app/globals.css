@@ -24,3 +24,215 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ---------------------------------------------------------------------------
+   Klinikksiden. Plain CSS rather than utility classes: the markup stays
+   readable, and the accessibility rules below are easier to find in one place.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --accent: #0b57d0;
+  --accent-tekst: #ffffff;
+  --kantlinje: #d4d4d4;
+  --dempet: #4a4a4a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #8ab4f8;
+    --accent-tekst: #0a0a0a;
+    --kantlinje: #3a3a3a;
+    --dempet: #b0b0b0;
+  }
+}
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Focus must stay visible everywhere — keyboard users have nothing else. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+header,
+main,
+footer {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--kantlinje);
+}
+
+footer {
+  border-top: 1px solid var(--kantlinje);
+  color: var(--dempet);
+}
+
+/* The skip link stays out of the way until it is focused. */
+.skip-lenke {
+  position: absolute;
+  left: -9999px;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 0.75rem 1rem;
+  z-index: 1;
+}
+
+.skip-lenke:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* A link, not a button — it navigates to another site. Styled as a button. */
+.booking-knapp {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--accent-tekst);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.booking-knapp:hover {
+  text-decoration: underline;
+}
+
+/* Desktop: vanlig lenkerad, knappen finnes ikke */
+.meny-knapp {
+  display: none;
+}
+
+#meny-liste {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+@media (max-width: 48rem) {
+  .meny-knapp {
+    display: block;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #meny-liste {
+    display: none;
+    flex-direction: column;
+  }
+
+  #meny-liste[data-apen='true'] {
+    display: flex;
+  }
+}
+
+.visuelt-skjult {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+#meny-liste {
+  margin: 0;
+  padding: 0;
+}
+
+#meny-liste a {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: inline-block;
+}
+
+#meny-liste a:hover,
+#meny-liste a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.meny-knapp {
+  background: none;
+  border: 1px solid var(--kantlinje);
+  border-radius: 0.25rem;
+  color: var(--foreground);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Sider */
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.hovedbilde,
+.portrett {
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+.behandlerliste {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.behandlerliste h2 {
+  margin-bottom: 0.25rem;
+}
+
+.tittel {
+  color: var(--dempet);
+  margin-top: 0;
+}
+
+.prisliste,
+.apningstider {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.prisliste th,
+.prisliste td,
+.apningstider th,
+.apningstider td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--kantlinje);
+}
+
+.prisliste .pris {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.merknad {
+  color: var(--dempet);
+}
+
+.adresse {
+  font-style: normal;
+}
+
+.kontaktliste {
+  list-style: none;
+  padding: 0;
+}
